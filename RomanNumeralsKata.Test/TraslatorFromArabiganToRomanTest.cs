@@ -8,7 +8,7 @@ using RomanNumeralsKata.Library;
 namespace RomanNumeralsKata.Test
 {
     [TestFixture]
-    public class TraslatorTest
+    public class TraslatorFromArabiganToRomanTest
     {
         private Traslator _traslator;
 
