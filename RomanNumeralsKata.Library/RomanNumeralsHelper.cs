@@ -9,26 +9,21 @@ namespace RomanNumeralsKata.Library
     {
         public static int GetThousands(string value)
         {
-            return AreThereNineVariationInValue(value,NumbersType.Hundreds) ? CalculateThousandsWithoutNineHundreds(value) : CalculateThousands(value);
+            return AreThereNineVariationInValue(value,NumbersType.Hundreds) ? CalculateThousands(value,-1) : CalculateThousands(value,1);
         }
 
-        private static int CalculateThousands(string value)
+        private static int CalculateThousands(string value,int number)
         {
-            return value.Substring(0, value.LastIndexOf('M') + 1).ToCharArray().Count() * 1000;
+            return value.Substring(0, value.LastIndexOf('M') + number).ToCharArray().Count() * 1000;
         }
-
-        private static int CalculateThousandsWithoutNineHundreds(string value)
-        {
-            return value.Substring(0, value.LastIndexOf('M') - 1).ToCharArray().Count() * 1000;
-        }
-
+ 
         public static int ConvertToArabiganNumber(string value)
         {           
             return GetThousands(value) + GetNumbers(value,NumbersType.Hundreds) + GetNumbers(value,NumbersType.Tens) + 
                         GetNumbers(value,NumbersType.Units);                        
         }
 
-        public static int GetNumbers(string value,NumbersType type)
+        private static int GetNumbers(string value,NumbersType type)
         {
             var numbers = 0;
             var numberHelper = GetNumberHelper(type);
@@ -62,57 +57,7 @@ namespace RomanNumeralsKata.Library
             }
             return number;
         }
-
-        public static int GetHundreds(string value)
-        {            
-            var hundreds = 0;
-            var type = NumbersType.Hundreds;
-            
-            if (AreThereNineVariationInValue(value,type))//CM        
-                hundreds = CalculateFiveVariations(type) + 400;
-            if (AreThereFourVariationInValue(value,type) && hundreds == 0)//CD            
-                hundreds = CalculateFiveVariations(type) - 100;
-            if (AreThereFiveVariationInValue(value,type) && hundreds == 0)//D        
-                hundreds = CalculateFiveVariations(type);
-            if (AreThereOneVariationInValue(value,type) && (hundreds == 0 || hundreds == 500))            
-                hundreds += CalculateOneVariations(value,type);            
-            return hundreds;         
-        }
-
-        public static int GetTens(string value)
-        {
-            var tens = 0;
-            var type = NumbersType.Tens;
-
-            if (AreThereNineVariationInValue(value,type))//XC        
-                tens = CalculateFiveVariations(type) + 40;
-            if (AreThereFourVariationInValue(value,type) && tens == 0)//XL            
-                tens = CalculateFiveVariations(type) - 10;
-            if (AreThereFiveVariationInValue(value,type) && tens == 0)//L       
-                tens = CalculateFiveVariations(type);
-            if (AreThereOneVariationInValue(value, type) && (tens == 0 || tens == 50))
-                tens += CalculateOneVariations(value,type);
-
-            return tens;
-        }
-
-        public static int GetUnits(string value)
-        {
-            var units = 0;
-            var type = NumbersType.Units;
-
-            if (AreThereNineVariationInValue(value,type))//IX        
-                units = CalculateFiveVariations(type) + 4;
-            if (AreThereFourVariationInValue(value,type) && units == 0)//IV            
-                units = CalculateFiveVariations(type) - 1;
-            if (AreThereFiveVariationInValue(value,type) && units == 0)//V       
-                units = CalculateFiveVariations(type);
-            if (AreThereOneVariationInValue(value, type) && (units == 0 || units == 5))
-                units += CalculateOneVariations(value,type);
-
-            return units;
-        }
-
+               
         private static int CalculateFiveVariations(NumbersType type)
         {
             var number = 0;
@@ -242,7 +187,7 @@ namespace RomanNumeralsKata.Library
 
         private static bool ContainsSpecialCases(string value)
         {
-            return value.Contains("XC");
+            return value.Contains("XC") || value.Contains("IX");
         }
     }
 

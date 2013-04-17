@@ -44,12 +44,12 @@ namespace RomanNumeralsKata.Test
         [Test]
         public void ShouldConvertUnits()
         {
-            Assert.AreEqual(9, RomanNumeralsHelper.GetNumbers("IX",NumbersType.Units));
-            Assert.AreEqual(4, RomanNumeralsHelper.GetNumbers("IV", NumbersType.Units));
-            Assert.AreEqual(5, RomanNumeralsHelper.GetNumbers("V", NumbersType.Units));
-            Assert.AreEqual(7, RomanNumeralsHelper.GetNumbers("VII", NumbersType.Units));
-            Assert.AreEqual(8, RomanNumeralsHelper.GetNumbers("VIII", NumbersType.Units));
-            Assert.AreEqual(3, RomanNumeralsHelper.GetNumbers("III", NumbersType.Units));           
+            Assert.AreEqual(9, RomanNumeralsHelper.ConvertToArabiganNumber("IX"));
+            Assert.AreEqual(4, RomanNumeralsHelper.ConvertToArabiganNumber("IV"));
+            Assert.AreEqual(5, RomanNumeralsHelper.ConvertToArabiganNumber("V"));
+            Assert.AreEqual(7, RomanNumeralsHelper.ConvertToArabiganNumber("VII"));
+            Assert.AreEqual(8, RomanNumeralsHelper.ConvertToArabiganNumber("VIII"));
+            Assert.AreEqual(3, RomanNumeralsHelper.ConvertToArabiganNumber("III"));           
         }
 
         [Test]
